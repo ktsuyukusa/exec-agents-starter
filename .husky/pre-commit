@@ -1,0 +1,11 @@
+
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Block committing plain .env files
+if git diff --cached --name-only | grep -E "^.*\.env(\..*)?$" > /dev/null; then
+  echo "❌ Committing .env files is blocked."
+  exit 1
+fi
+
+npx lint-staged
